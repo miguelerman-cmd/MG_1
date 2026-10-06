@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MG Consulting - Consultora de Ingeniería</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2446C4;
+            --secondary: #FFE14D;
+            --bg: #90BE6D;
+            --text: #000000;
+            --white: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            padding: 20px;
+            line-height: 1.5;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--white);
+            border: 4px solid var(--primary);
+            padding: 24px;
+        }
+
+        /* Encabezado */
+        .profile-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .profile-img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            border: 4px solid var(--primary);
+            object-fit: cover;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-img:hover {
+            transform: scale(1.05);
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            font-weight: 700;
+            background-color: var(--secondary);
+            display: inline-block;
+            padding: 4px 10px;
+            border: 2px solid var(--primary);
+            text-transform: uppercase;
+        }
+
+        /* Menú de botones apilados */
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .menu-btn {
+            background-color: var(--primary);
+            color: var(--white);
+            border: 3px solid var(--primary);
+            padding: 14px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-align: center;
+            text-decoration: none;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s, transform 0.1s;
+        }
+
+        .menu-btn:hover {
+            background-color: var(--secondary);
+            color: var(--text);
+            transform: translateX(4px);
+        }
+
+        /* Secciones Desplegables (Acordeón) */
+        section {
+            margin-bottom: 20px;
+            border: 3px solid var(--primary);
+        }
+
+        .accordion-header {
+            background-color: var(--secondary);
+            color: var(--text);
+            padding: 14px 18px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            transition: background-color 0.2s;
+        }
+
+        .accordion-header:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+            background-color: var(--white);
+            padding: 0 18px;
+        }
+
+        section.active .accordion-content {
+            max-height: 800px;
+            padding: 18px;
+        }
+
+        p, ul {
+            margin-bottom: 12px;
+        }
+
+        ul {
+            list-style-type: square;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 6px;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: underline;
+            font-weight: 700;
+        }
+
+        a:hover {
+            color: var(--text);
+        }
+
+        /* Carrusel */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            border: 3px solid var(--primary);
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .carousel-slides {
+            display: flex;
+            width: 300%;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            background-color: var(--secondary);
+            border-right: 3px solid var(--primary);
+            text-transform: uppercase;
+        }
+
+        .slide:nth-child(2) {
+            background-color: #a0c4ff;
+        }
+
+        .slide:nth-child(3) {
+            background-color: #ffadad;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--primary);
+            color: var(--white);
+            border: 2px solid var(--white);
+            padding: 8px 12px;
+            cursor: pointer;
+            font-weight: 700;
+            z-index: 10;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .carousel-btn:hover {
+            background-color: var(--secondary);
+            color: var(--text);
+        }
+
+        .prev-btn { left: 10px; }
+        .next-btn { right: 10px; }
+
+        /* Formulario de contacto simulado */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .contact-form input, .contact-form textarea {
+            border: 2px solid var(--primary);
+            padding: 12px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1rem;
+            background: var(--white);
+        }
+
+        .contact-form button {
+            background-color: var(--primary);
+            color: var(--white);
+            border: 2px solid var(--primary);
+            padding: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .contact-form button:hover {
+            background-color: var(--secondary);
+            color: var(--text);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Encabezado con foto y datos principales -->
+        <header class="profile-header">
+            <img src="Miguel.jpg" alt="Foto de perfil de Miguel" class="profile-img">
+            <h1>MG Consulting</h1>
+            <div class="subtitle">Consultora de Ingeniería</div>
+        </header>
+
+        <!-- Menú Principal con botones apilados -->
+        <nav class="menu">
+            <a href="#presentacion" class="menu-btn">Presentación</a>
+            <a href="#mas-info" class="menu-btn">Más Info</a>
+            <a href="#proyectos" class="menu-btn">Proyectos</a>
+            <a href="#servicios" class="menu-btn">Servicios</a>
+            <a href="#contacto" class="menu-btn">Contacto</a>
+        </nav>
+
+        <!-- Secciones Desplegables -->
+        <section id="presentacion">
+            <div class="accordion-header">Presentación <span>+</span></div>
+            <div class="accordion-content">
+                <p>Somos la consultora que soluciona tus inquietudes , proyectos</p>
+            </div>
+        </section>
+
+        <section id="mas-info">
+            <div class="accordion-header">Más Info <span>+</span></div>
+            <div class="accordion-content">
+                <p>20 anos de experiencia</p>
+            </div>
+        </section>
+
+        <section id="proyectos">
+            <div class="accordion-header">Proyectos <span>+</span></div>
+            <div class="accordion-content">
+                <p>Explora algunos de nuestros trabajos recientes:</p>
+                <!-- Carrusel automático y manual -->
+                <div class="carousel-container">
+                    <div class="carousel-slides" id="carouselSlides">
+                        <div class="slide">Imagen 1</div>
+                        <div class="slide">Imagen 2</div>
+                        <div class="slide">Imagen 3</div>
+                    </div>
+                    <button class="carousel-btn prev-btn" id="prevBtn">&#10094;</button>
+                    <button class="carousel-btn next-btn" id="nextBtn">&#10095;</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="servicios">
+            <div class="accordion-header">Servicios <span>+</span></div>
+            <div class="accordion-content">
+                <ul>
+                    <li><strong>Prevención de Incendio:</strong> Instalaciones - Proteccion Activa y Pasiva</li>
+                    <li><strong>Habilitaciones:</strong> Factibilidad y gestion</li>
+                    <li><strong>Electromovilidad:</strong> Estacionamientos Seguros</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="contacto">
+            <div class="accordion-header">Contacto <span>+</span></div>
+            <div class="accordion-content">
+                <p>Canales de comunicación directos:</p>
+                <ul>
+                    <li>Email: <a href="mailto:info@mgconsulting.com">info@mgconsulting.com</a></li>
+                    <li>Teléfono: <a href="tel:+5491100000000">+54 9 11 0000-0000</a></li>
+                    <li>WhatsApp: <a href="https://wa.me/5491100000000" target="_blank">Escribir por WhatsApp</a></li>
+                    <li>LinkedIn: <a href="https://linkedin.com" target="_blank">Perfil de LinkedIn</a></li>
+                </ul>
+                <p>O completá el formulario simulado:</p>
+                <form class="contact-form" onsubmit="event.preventDefault(); alert('¡Mensaje enviado con éxito! (Formulario simulado)');">
+                    <input type="text" placeholder="Tu Nombre" required>
+                    <input type="email" placeholder="Tu Email" required>
+                    <textarea placeholder="Tu Mensaje" rows="3" required></textarea>
+                    <button type="submit">Enviar Mensaje</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Lógica de acordeón (desplegables)
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const section = header.parentElement;
+                const isActive = section.classList.contains('active');
+                
+                section.classList.toggle('active', !isActive);
+                header.querySelector('span').textContent = isActive ? '+' : '-';
+            });
+        });
+
+        // Desplazamiento suave (Smooth Scroll) desde el menú
+        document.querySelectorAll('.menu-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                const header = targetSection.querySelector('.accordion-header');
+                
+                // Abre automáticamente la sección si se encuentra cerrada
+                if (!targetSection.classList.contains('active')) {
+                    targetSection.classList.add('active');
+                    header.querySelector('span').textContent = '-';
+                }
+
+                targetSection.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Carrusel automático y manual con flechas
+        const slidesContainer = document.getElementById('carouselSlides');
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        let currentIndex = 0;
+        const totalSlides = slides.length;
+
+        function updateCarousel() {
+            slidesContainer.style.transform = `translateX(-${currentIndex * (100 / totalSlides)}%)`;
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % totalSlides;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+
+        // Auto-play cada 4 segundos
+        let autoPlay = setInterval(nextSlide, 4000);
+
+        // Pausar el desplazamiento automático al colocar el cursor encima
+        const carouselContainer = document.querySelector('.carousel-container');
+        carouselContainer.addEventListener('mouseenter', () => clearInterval(autoPlay));
+        carouselContainer.addEventListener('mouseleave', () => {
+            autoPlay = setInterval(nextSlide, 4000);
+        });
+    </script>
+</body>
+</html>
